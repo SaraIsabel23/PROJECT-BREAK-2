@@ -1,0 +1,1 @@
+// User.js: Define la estructura y reglas de los usuarios en la base de datos.

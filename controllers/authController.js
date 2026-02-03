@@ -1,0 +1,1 @@
+// authController.js: Contiene la lógica de negocio relacionada con autenticación (login, registro, etc.)

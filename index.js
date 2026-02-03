@@ -1,0 +1,1 @@
+// index.js: Es el punto de entrada de la aplicación, donde se arranca el servidor y se conecta todo.

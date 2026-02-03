@@ -1,0 +1,1 @@
+// authMiddleware.js: Verifica si el usuario está autenticado y autorizado antes de acceder a ciertas rutas.

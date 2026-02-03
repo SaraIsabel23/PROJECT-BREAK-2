@@ -1,0 +1,1 @@
+// productController.test.js: Sirve para probar que el controlador de productos funciona correctamente.

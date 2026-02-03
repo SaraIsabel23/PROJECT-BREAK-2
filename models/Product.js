@@ -1,0 +1,1 @@
+// Product.js: Define la estructura y reglas de los productos en la base de datos.

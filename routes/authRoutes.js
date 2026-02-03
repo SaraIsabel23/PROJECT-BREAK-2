@@ -1,0 +1,1 @@
+// authRoutes.js: Define las rutas de autenticación y las conecta con su controlado

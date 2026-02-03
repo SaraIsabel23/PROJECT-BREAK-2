@@ -1,0 +1,1 @@
+//productRoutes.js: Define las rutas de productos y las conecta con su controlador.
