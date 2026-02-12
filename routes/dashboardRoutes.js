@@ -1,35 +1,21 @@
 //dashboardRoutes.js: Define las rutas para el administrador de los productos y las conecta con su controlador.
 
-const express = require('express');
-const router  = express.Router();
+const express             = require('express');
+const dashboardController = require('../controllers/dashboardController');
+const router              = express.Router();
 
-router.get("/", (req, res) => {
-    res.send("Aquí aparecerán todos los productos.Al hacer click, nos lleva a su página para actualizar o eliminar")
-});
+router.get("/", dashboardController.showProducts);
 
-router.get("/new", (req, res) => {
-    res.send("Devuelve el formulario para subir un artículo nuevo")
-});
+router.get("/new", dashboardController.showNewProduct);
 
-router.post("/", (req, res) => {
-    res.send("Crea un nuevo producto")
-});
+router.post("/", dashboardController.createProduct);
 
-router.get("/:productId", (req, res) => {
-    console.log(req.params.productId)
-    res.send("Devuelve el detalle de un producto en el dashboard")
-});
+router.get("/:productId", dashboardController.showProductById);
 
-router.get("/:productId/edit", (req, res) => {
-    res.send("Devuelve el formulario para editar un producto")
-});
+router.get("/:productId/edit", dashboardController.showEditProduct);
 
-router.put("/:productId", (req, res) => {
-    res.send("Actualiza un producto")
-});
+router.put("/:productId", dashboardController.updateProduct);
 
-router.delete("/:productId/delete", (req, res) => {
-    res.send("Elimina un producto")
-});
+router.delete("/:productId/delete", dashboardController.deleteProduct);
 
 module.exports = router;

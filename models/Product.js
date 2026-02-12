@@ -6,9 +6,9 @@ const validSize     = ["XS","S","M","L","XL"];
 
 const productSchema = new mongoose.Schema({
     name:        {type: String, required: true},
-    description: {type: String, required: true},
     image:       {type: String, required: true},
     category:    {type: String, enum: validCategory, required:true},
+    description: {type: String, required: true},
     size:        {type: String, enum: validSize, required: true},
     price:       {type: Number, required: true}
 });
