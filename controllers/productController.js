@@ -39,7 +39,7 @@ const publicControllers = {
                <p>${product.description}</p>
                <p>Talla: ${product.size}</p>
                <p>${product.price}€</p>
-               <a href="/products">Volver</a>
+               <a href="/products" class="btn-volver">Volver</a>
             </div>
             `
             const html = baseHtml(getNavBar() + detail)

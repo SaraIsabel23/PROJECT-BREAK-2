@@ -42,11 +42,11 @@ const dashboardControllers = {
                <p>${product.description}</p>
                <p>Talla: ${product.size}</p>
                <p>${product.price}€</p>
-               <a href="/dashboard/${product._id}/edit">Editar</a>
+               <a href="/dashboard/${product._id}/edit" class="btn-editar">Editar</a>
                <form action="/dashboard/${product._id}/delete?_method=DELETE" method="POST">
-                 <button type="submit">Eliminar</button>
+                 <button type="submit" class="btn-eliminar">Eliminar</button>
                </form>
-               <a href="/dashboard">Volver</a>
+               <a href="/dashboard" class="btn-volver">Volver</a>
             </div>
             `
             const html = baseHtml(getDashboardNavBar() + detail)
@@ -89,7 +89,7 @@ const dashboardControllers = {
                      <option value="XL">XL</option>
                   </select>
                 
-                  <button type="submit">Crear</button>
+                  <button type="submit" class="btn-crear">Crear</button>
                </form>
                `
                const html = baseHtml(getDashboardNavBar() + form);
@@ -158,10 +158,10 @@ const dashboardControllers = {
                      <option value="XL" ${product.size === 'XL' ? 'selected': ''}>XL</option>
                   </select>
 
-                  <button type="submit">Guardar cambios</button>
+                  <button type="submit" class="btn-guardar">Guardar cambios</button>
                </form>
                   `;
-            const html = baseHtml(getDas() + form);
+            const html = baseHtml(getDashboardNavBar() + form);
             res.send(html);
 
         } catch(error) {
