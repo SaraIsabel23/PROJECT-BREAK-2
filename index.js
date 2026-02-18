@@ -1,12 +1,13 @@
 // index.js: Es el punto de entrada de la aplicación, donde se arranca el servidor y se conecta todo.
 require("dotenv").config();
 
-const express = require('express');
-const swaggerUi = require('swagger-ui-express');
-const docs      = require('./docs');
-const methodOverride = require('method-override');
-//const { dbConnection } = require('./config/db'); QUITAR EL COMENTARIO CUANDO FUNCIONE MONGO DB
-const routes  = require('./routes');
+const express          = require('express');
+const swaggerUi        = require('swagger-ui-express');
+const docs             = require('./docs');
+const methodOverride   = require('method-override');
+const session          = require('express-session'); 
+const { dbConnection } = require('./config/db'); //QUITAR EL COMENTARIO CUANDO FUNCIONE MONGO DB
+const routes           = require('./routes');
 
 const app     = express();
 const PORT    = process.env.PORT || 3000;
@@ -16,11 +17,16 @@ app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.use(methodOverride('_method'));
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(docs));
+app.use(session({
+    secret: 'tu_clave_secreta',
+    resave: false,
+    saveUninitialized: false
+}));
 
 app.use("/", routes);
 
 
-//dbConnection(); QUITAR EL COMENTARIO CUANDO FUNCIONE MONGO DB
+dbConnection(); //QUITAR EL COMENTARIO CUANDO FUNCIONE MONGO DB
 
 app.listen(PORT, () => console.log(`Server started on port http://localhost:${PORT}`));
 

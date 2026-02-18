@@ -7,7 +7,7 @@ const getNavBar = () => {
        <a href="/products?category=Pantalones">Pantalones</a>
        <a href="/products?category=Zapatos">Zapatos</a>
        <a href="/products?category=Accesorios">Accesorios</a>
-       <a href="/dashboard">Dashboard</a>
+       <a href="/dashboard">Inicio Admin.</a>
     </nav>
     `;
 };

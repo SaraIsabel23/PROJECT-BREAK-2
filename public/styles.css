@@ -136,7 +136,7 @@ h2 {
 .btn-volver:hover { background-color: #555; }
 
 /* FORMULARIOS */
-form {
+.form-container {
     max-width: 500px;
     margin: 20px auto;
     background-color: white;

@@ -7,7 +7,8 @@ const getDashboardNavBar = () => {
        <a href="/dashboard?category=Pantalones">Pantalones</a>
        <a href="/dashboard?category=Zapatos">Zapatos</a>
        <a href="/dashboard?category=Accesorios">Accesorios</a>
-       <a href="/dashboard">Dashboard</a>
+       <a href="/dashboard/new">Nuevo Producto</a>
+       <a href="/auth/logout">Cerrar Sesion</a>
     </nav>
     `;
 };

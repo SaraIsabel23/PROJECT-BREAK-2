@@ -1,4 +1,5 @@
 // Product.js: Define la estructura y reglas de los productos en la base de datos.
+
 const mongoose = require('mongoose');
 
 const validCategory = ['Camisetas','Pantalones','Zapatos','Accesorios'];

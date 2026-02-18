@@ -60,7 +60,7 @@ const dashboardControllers = {
         try {
             const form = `
                <h2>Nuevo producto</h2>
-               <form action="/dashboard" method="POST">
+               <form action="/dashboard" method="POST" class="form-container">
                   <label>Nombre:</label>
                   <input type="text" name="name" required>
                
@@ -128,7 +128,7 @@ const dashboardControllers = {
             };
             const form      = `
                <h2>Editar producto</h2>
-               <form action="/dashboard/${product._id}?_method=PUT" method="POST">
+               <form action="/dashboard/${product._id}?_method=PUT" method="POST" class="form-container">
                   <label>Nombre:</label>
                   <input type="text" name="name" value="${product.name}" required>
                

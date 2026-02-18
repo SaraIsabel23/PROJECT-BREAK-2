@@ -1,7 +1,8 @@
 // prodcutController.js: Muestra todos los productos al público. Solo pueden verlos.
-const Product  = require('../models/Product');
-const baseHtml = require('../helpers/baseHtml');
-const getNavBar =require('../helpers/getNavBar');
+
+const Product         = require('../models/Product');
+const baseHtml        = require('../helpers/baseHtml');
+const getNavBar       = require('../helpers/getNavBar');
 const getProductCards = require('../helpers/getProductCards');
 const productsTemp    = require('../data/productsTemp');
 

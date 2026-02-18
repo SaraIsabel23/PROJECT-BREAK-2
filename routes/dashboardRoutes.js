@@ -3,6 +3,9 @@
 const express             = require('express');
 const dashboardController = require('../controllers/dashboardController');
 const router              = express.Router();
+const authMiddleware      = require('../middlewares/authMiddleware');
+
+router.use(authMiddleware);
 
 router.get("/", dashboardController.showProducts);
 
