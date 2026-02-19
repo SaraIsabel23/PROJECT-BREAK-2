@@ -16,11 +16,14 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "cloudinary": "^1.41.3",
     "dotenv": "^17.2.3",
     "express": "^5.2.1",
     "express-session": "^1.19.0",
     "method-override": "^3.0.0",
     "mongoose": "^9.1.5",
+    "multer": "^2.0.2",
+    "multer-storage-cloudinary": "^4.0.0",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1"
   },

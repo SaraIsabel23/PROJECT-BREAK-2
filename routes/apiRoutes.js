@@ -1,7 +1,7 @@
 
-const express = require('express');
+const express       = require('express');
 const apiController = require('../controllers/apiController');
-const router  = express.Router();
+const router        = express.Router();
 
 
 router.get("/", apiController.getProducts);//Todos los productos en JSON

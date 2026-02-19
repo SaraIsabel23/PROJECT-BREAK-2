@@ -4,6 +4,7 @@ const express             = require('express');
 const dashboardController = require('../controllers/dashboardController');
 const router              = express.Router();
 const authMiddleware      = require('../middlewares/authMiddleware');
+const upload              = require('../middlewares/uploadCloudinaryMiddleware');
 
 router.use(authMiddleware);
 
@@ -11,13 +12,13 @@ router.get("/", dashboardController.showProducts);
 
 router.get("/new", dashboardController.showNewProduct);
 
-router.post("/", dashboardController.createProduct);
+router.post("/",upload.single('image'), dashboardController.createProduct);
 
 router.get("/:productId", dashboardController.showProductById);
 
 router.get("/:productId/edit", dashboardController.showEditProduct);
 
-router.put("/:productId", dashboardController.updateProduct);
+router.put("/:productId",upload.single('image'), dashboardController.updateProduct);
 
 router.delete("/:productId/delete", dashboardController.deleteProduct);
 

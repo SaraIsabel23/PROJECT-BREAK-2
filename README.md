@@ -32,14 +32,11 @@ desde un panel de administracion.
 
 - /config - Configuracion de base de datos
    |--db.js
-   ****|--firebase.js
 - /controllers - Logica de las rutas
    |--apiController.js
    |--authController.js
    |--dashboardController.js
    |--productController.js
-- /data - Datos temporales (Se eliminará cuando logre conectar MONGO DB)
-   |--productsTemp.js
 - /docs - Documentacion Swagger
    |--basicInfo.js
    |--components.js
@@ -55,9 +52,7 @@ desde un panel de administracion.
    |--authMiddleware.js
 - /models - Esquema de datos
    |--Product.js
-   ****|--User.js
-- /public - Archivos estaticos (CSS, imagenes)
-   |--/images
+- /public - Archivos estaticos
    |--styles.css
 - /routes - Definicion de rutas
    |--apiRoutes.js
@@ -65,11 +60,13 @@ desde un panel de administracion.
    |--dashboardRoutes.js
    |--index.js
    |--productRoutes.js
-- ****/test - Testing
+- /test - Testing
    |--productController.test.js
 -.env
+-.env.example
 -.gitignore
 -index.js
+-app.js
 
 
 
@@ -93,6 +90,14 @@ desde un panel de administracion.
 | PUT    | /dashboard/:id        | Actualizar producto             |
 | DELETE | /dashboard/:id/delete | Eliminar producto               |
 
+## Acceso al Dashboard (Administrador)
+
+El panel de administracion esta protegido con usuario y contrasena.
+Las credenciales se configuran en el archivo .env:
+
+ADMIN_USER=tu_usuario
+ADMIN_PASSWORD=tu_contrasena
+
 ## API Endpoints
 
 | Metodo | Ruta              | Descripcion                |
@@ -106,6 +111,9 @@ desde un panel de administracion.
 ## Documentacion API
 
 Disponible en: http://localhost:3000/api-docs
+
+
+Disponible en : 
 
 ## Autor/a
 

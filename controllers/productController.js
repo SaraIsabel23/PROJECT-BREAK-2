@@ -4,7 +4,6 @@ const Product         = require('../models/Product');
 const baseHtml        = require('../helpers/baseHtml');
 const getNavBar       = require('../helpers/getNavBar');
 const getProductCards = require('../helpers/getProductCards');
-const productsTemp    = require('../data/productsTemp');
 
 
 const publicControllers = {
@@ -14,10 +13,10 @@ const publicControllers = {
             let products;
 
             if (category) {
-               products = productsTemp.filter(p => p.category === category);
+               products = await Product.find({ category: category});
             } else {
-               products = productsTemp;
-            }                   /*await Product.find();ponerlo cuando funcione mongoDB--products = await Product.find({ category: category });*/
+               products = await Product.find();
+            }                   
             const productCards = getProductCards(products);
             const html = baseHtml(getNavBar() + productCards);
             res.send(html);
@@ -31,15 +30,15 @@ const publicControllers = {
     showProductById: async (req, res) => {
         try{
             const productId = req.params.productId;
-            const product = productsTemp.find(p => p._id === productId);  /*await Product.findById(productId);ponerlo cuando funcione mongoDB*/
-            const detail  = `
+            const product   = await Product.findById(productId)
+            const detail    = `
             <div class="product-detail">
                <h2>${product.name}</h2>
                <img src="${product.image}" alt="${product.name}">
                <p>Categoria: ${product.category}</p>
                <p>${product.description}</p>
                <p>Talla: ${product.size}</p>
-               <p>${product.price}€</p>
+               <p>${product.price % 1 === 0 ? product.price : product.price.toFixed(2)}€</p>
                <a href="/products" class="btn-volver">Volver</a>
             </div>
             `

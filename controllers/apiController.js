@@ -1,11 +1,10 @@
 
-const Product      = require('../models/Product');
-const productsTemp = require('../data/productsTemp');
+const Product = require('../models/Product');
 
 const apiController = {
     getProducts: async (req, res) => {
         try {
-            const products = productsTemp;
+            const products = await Product.find()
             res.status(200).json(products);
         } catch(error) {
             console.error(error);
@@ -15,7 +14,7 @@ const apiController = {
     getProductById: async (req, res) => {
         try {
             const productId = req.params.productId;
-            const product   = productsTemp.find(p => p._id === productId);
+            const product   = await Product.findById(productId);
             if(!product) {
                 return res.status(404).json({message: "Producto no encontrado"});
             }
@@ -27,16 +26,7 @@ const apiController = {
     },
     createProduct: async (req, res) => {
         try {
-            const newProduct = {
-                _id: Date.now().toString(),
-                name: req.body.name,
-                description: req.body.description,
-                price: req.body.price,
-                image: req.body.image,
-                category: req.body.category,
-                size: req.body.size
-            };
-            productsTemp.push(newProduct);//const product = await Product.create(req.body);
+            const newProduct = await Product.create(req.body);
             res.status(201).json(newProduct);
 
         } catch(error) {
@@ -47,22 +37,15 @@ const apiController = {
     updateProduct: async (req, res) => {
         try {
             const productId = req.params.productId;
-            const productIndex = productsTemp.findIndex(p => p._id === productId);
-            if(productIndex === -1) {
+            const product   = await Product.findByIdAndUpdate(
+                productId,
+                req.body,
+                { new: true }
+            );
+            if(!product) {
                 return res.status(404).json({message:"Producto no encontrado"});
             }
-            
-            productsTemp[productIndex] = {
-                _id: productId,
-                name: req.body.name,
-                description: req.body.description,
-                price: req.body.price,
-                image: req.body.image,
-                category: req.body.category,
-                size: req.body.size
-            };            //await Product.findByIdAndUpdate(productId, req.body); CAMBIAR CON MONGO DB
-            
-            res.status(200).json(productsTemp[productIndex]);
+            res.status(200).json(product);
 
         } catch(error) {
             console.error(error);
@@ -72,11 +55,10 @@ const apiController = {
     deleteProduct: async (req, res) => {
         try {
             const productId = req.params.productId;
-            const productIndex = productsTemp.findIndex(p => p._id === productId);
-            if(productIndex === -1) {
+            const product   = await Product.findByIdAndDelete(productId);
+            if(!product) {
                 return res.status(404).json({message:"Producto no encontrado"});
             }
-            productsTemp.splice(productIndex, 1)//await Product.findByIdAndDelete(productId); DOS ULTIMAS LINEAS MODIFICAR CON MONGO DB
             res.status(200).json({message:"Producto eliminado"});
 
         } catch(error) {

@@ -6,7 +6,7 @@ const getNavBar = require('../helpers/getNavBar');
 const authController = {
     showLogin: (req, res) => {
         const error = req.query.error;
-        const form = `
+        const form  = `
             <div class="form-login">
                 <h2>Iniciar Sesion</h2>
                 ${error ? '<p class="error-msg">Usuario o contrasena incorrectos</p>' : ''}
@@ -28,7 +28,10 @@ const authController = {
 
         if (username === process.env.ADMIN_USER && password === process.env.ADMIN_PASSWORD) {
             req.session.isAdmin = true;
-            res.redirect('/dashboard');
+            req.session.save(() => {
+                res.redirect('/dashboard');
+            });
+
         } else {
             res.redirect('/auth/login?error=true');
         }

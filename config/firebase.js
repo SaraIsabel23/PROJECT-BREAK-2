@@ -1,1 +1,0 @@
-// firebase.js: Configura y exporta la conexión con Firebase para poder usar sus servicios.

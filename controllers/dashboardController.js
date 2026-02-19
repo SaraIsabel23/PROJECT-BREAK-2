@@ -3,7 +3,6 @@
 const Product            = require('../models/Product');
 const baseHtml           = require('../helpers/baseHtml');
 const getDashboardCards  = require('../helpers/getDashboardCards');
-const productsTemp       = require('../data/productsTemp');
 const getDashboardNavBar = require('../helpers/getDashboardNavBar');
 
 
@@ -14,10 +13,10 @@ const dashboardControllers = {
             let products;
 
             if(category) {
-                products = productsTemp.filter(p => p.category === category);
+                products = await Product.find({ category: category});
             } else {
-                products = productsTemp;
-            }                     /*await Product.find();ponerlo cuando funcione mongoDB--products = await Product.find({ category: category });*/
+                products = await Product.find();
+            }                     
             const productCards = getDashboardCards(products);
             const html = baseHtml(getDashboardNavBar() + productCards);
             res.send(html);
@@ -30,7 +29,7 @@ const dashboardControllers = {
     showProductById: async (req, res) => {
         try {
             const productId = req.params.productId;
-            const product   = productsTemp.find(p => p._id === productId);
+            const product   = await Product.findById(productId);
             if(!product) {
                 return res.status(404).send(baseHtml(getDashboardNavBar() + '<h2>Producto no encontrado</h2>'))
             };
@@ -41,9 +40,9 @@ const dashboardControllers = {
                <p>Categoria: ${product.category}</p>
                <p>${product.description}</p>
                <p>Talla: ${product.size}</p>
-               <p>${product.price}€</p>
+               <p>${product.price % 1 === 0 ? product.price : product.price.toFixed(2)}€</p>
                <a href="/dashboard/${product._id}/edit" class="btn-editar">Editar</a>
-               <form action="/dashboard/${product._id}/delete?_method=DELETE" method="POST">
+               <form action="/dashboard/${product._id}/delete?_method=DELETE" method="POST" onsubmit="return confirm('¿Desea eliminar este articulo?')">
                  <button type="submit" class="btn-eliminar">Eliminar</button>
                </form>
                <a href="/dashboard" class="btn-volver">Volver</a>
@@ -60,7 +59,7 @@ const dashboardControllers = {
         try {
             const form = `
                <h2>Nuevo producto</h2>
-               <form action="/dashboard" method="POST" class="form-container">
+               <form action="/dashboard" method="POST" class="form-container" enctype="multipart/form-data">
                   <label>Nombre:</label>
                   <input type="text" name="name" required>
                
@@ -68,10 +67,10 @@ const dashboardControllers = {
                   <input type="text" name="description" required>
                
                   <label>Precio:</label>
-                  <input type="number" name="price" required>
+                  <input type="number" name="price" step="0.01" required>
                
                   <label>Imagen:</label>
-                  <input type="text" name="image" required>
+                  <input type="file" name="image" accept="image/*" required>
 
                   <label>Categoria:</label>
                   <select name="category" required>
@@ -102,17 +101,12 @@ const dashboardControllers = {
     },
     createProduct: async (req, res) => {
         try {
-            const newProduct = {
-                _id: Date.now().toString(),
-                name: req.body.name,
-                description: req.body.description,
-                price: req.body.price,
-                image: req.body.image,
-                category: req.body.category,
-                size: req.body.size
-            };
-            productsTemp.push(newProduct);  //const product = await Product.create(req.body);
-            res.redirect('/dashboard');     //res.redirect('/dashboard'); MODIFICAR CUANDO TENGA MONGO DB
+            const productData =req.body;
+            if (req.file) {
+                productData.image = req.file.path;
+            }
+            await Product.create(productData);
+            res.redirect('/dashboard');
         
         } catch(error) {
             console.error(error);
@@ -122,13 +116,13 @@ const dashboardControllers = {
     showEditProduct: async (req, res) => {
         try {
             const productId = req.params.productId;
-            const product   = productsTemp.find(p => p._id === productId);
+            const product   = await Product.findById(productId);
             if(!product) {
                 return res.status(404).send(baseHtml(getDashboardNavBar() + '<h2>Producto no encontrado</h2>'))
             };
             const form      = `
                <h2>Editar producto</h2>
-               <form action="/dashboard/${product._id}?_method=PUT" method="POST" class="form-container">
+               <form action="/dashboard/${product._id}?_method=PUT" method="POST" class="form-container" enctype="multipart/form-data">
                   <label>Nombre:</label>
                   <input type="text" name="name" value="${product.name}" required>
                
@@ -136,10 +130,10 @@ const dashboardControllers = {
                   <input type="text" name="description" value="${product.description}" required>
                
                   <label>Precio:</label>
-                  <input type="number" name="price" value="${product.price}" required>
+                  <input type="number" name="price" value="${product.price % 1 === 0 ? product.price : product.price.toFixed(2)}" step="0.01" required>
                
                   <label>Imagen:</label>
-                  <input type="text" name="image" value="${product.image}" required>
+                  <input type="file" name="image" accept="image/*">
 
                   <label>Categoria:</label>
                   <select name="category" required>
@@ -171,21 +165,15 @@ const dashboardControllers = {
     },
     updateProduct: async (req, res) => {
         try {
-            const productId    = req.params.productId;
-            const productIndex = productsTemp.findIndex(p => p._id === productId);
-            if(productIndex === -1) {
+            const productId   = req.params.productId;
+            const productData = req.body;
+            if (req.file) {
+                productData.image = req.file.path;
+            }
+            const product = await Product.findByIdAndUpdate(productId, productData);
+            if(!product) {
                 return res.status(404).send(baseHtml(getDashboardNavBar() + '<h2>Producto no encontrado</h2>'))
             };
-            
-            productsTemp[productIndex] = {
-                _id: productId,
-                name: req.body.name,
-                description: req.body.description,
-                price: req.body.price,
-                image: req.body.image,
-                category: req.body.category,
-                size: req.body.size
-            };                   //await Product.findByIdAndUpdate(productId, req.body); CAMBIAR CON MONGO DB
 
             res.redirect("/dashboard");
 
@@ -196,14 +184,12 @@ const dashboardControllers = {
     },
     deleteProduct: async (req, res) => {
         try {
-            const productId    = req.params.productId;
-            const productIndex = productsTemp.findIndex(p => p._id === productId);
-            if(productIndex === -1) {
+            const productId = req.params.productId;
+            const product   = await Product.findByIdAndDelete(productId);
+            if(!product) {
                 return res.status(404).send(baseHtml(getDashboardNavBar() + '<h2>Producto no encontrado</h2>'))
             };
             
-            productsTemp.splice(productIndex, 1); //await Product.findByIdAndDelete(productId); DOS ULTIMAS LINEAS MODIFICAR CON MONGO DB
-
             res.redirect("/dashboard");
         } catch(error) {
             console.log(error);
