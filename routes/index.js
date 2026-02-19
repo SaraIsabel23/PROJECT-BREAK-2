@@ -7,6 +7,9 @@ const apiRoutes       = require('./apiRoutes');
 const authRoutes      = require('./authRoutes');
 const router          = express.Router();
 
+router.get('/', (req, res) => {
+  res.redirect('/products');
+});
 
 router.use("/products", productRoutes);
 router.use("/dashboard", dashboardRoutes);

@@ -175,4 +175,45 @@ input, select {
     background-color: #3b5998;
 }
 
+/* RESPONSIVE */
+@media (max-width: 768px) {
 
+    nav {
+        flex-wrap: wrap;
+        gap: 15px;
+        padding: 10px;
+    }
+
+    nav a {
+        font-size: 14px;
+    }
+
+    .products-grid {
+        padding: 15px;
+        gap: 20px;
+    }
+
+    .product-card {
+        width: 90%;
+    }
+
+    .product-detail {
+        width: 90%;
+        margin: 20px auto;
+        padding: 15px;
+    }
+
+    .form-container {
+        width: 90%;
+        padding: 20px;
+    }
+
+    input, select {
+        font-size: 16px;
+    }
+
+    .btn-crear, .btn-guardar {
+        font-size: 16px;
+        padding: 12px;
+    }
+}
