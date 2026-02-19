@@ -12,6 +12,9 @@ desde un panel de administracion.
 - Swagger (documentacion API)
 - Dotenv
 - Method-override
+- Cloudinary
+- Multer
+
 
 ## Instalacion
 
@@ -31,37 +34,37 @@ desde un panel de administracion.
 ## Estructura del proyecto
 
 - /config - Configuracion de base de datos
-   |--db.js
+   --db.js
 - /controllers - Logica de las rutas
-   |--apiController.js
-   |--authController.js
-   |--dashboardController.js
-   |--productController.js
+   --apiController.js
+   --authController.js
+   --dashboardController.js
+   --productController.js
 - /docs - Documentacion Swagger
-   |--basicInfo.js
-   |--components.js
-   |--index.js
-   |--products.js
+   --basicInfo.js
+   --components.js
+   --index.js
+   --products.js
 - /helpers - Funciones para generar HTML
-   |--baseHtml.js
-   |--getDashboardCards.js
-   |--getDashboardNavBar.js
-   |--getNavBar.js
-   |--getProductCards.js
-- ****/middlewares - Verificación
-   |--authMiddleware.js
+   --baseHtml.js
+   --getDashboardCards.js
+   --getDashboardNavBar.js
+   --getNavBar.js
+   --getProductCards.js
+- /middlewares - Verificación
+   --authMiddleware.js
 - /models - Esquema de datos
-   |--Product.js
+   --Product.js
 - /public - Archivos estaticos
-   |--styles.css
-- /routes - Definicion de rutas
-   |--apiRoutes.js
-   |--authRoutes.js
-   |--dashboardRoutes.js
-   |--index.js
-   |--productRoutes.js
+   --styles.css
+- /routes - Definición de rutas
+   --apiRoutes.js
+   --authRoutes.js
+   --dashboardRoutes.js
+   --index.js
+   --productRoutes.js
 - /test - Testing
-   |--productController.test.js
+   --productController.test.js
 -.env
 -.env.example
 -.gitignore
@@ -78,21 +81,21 @@ desde un panel de administracion.
 | GET    | /products?category=X | Filtrar por categoria      |
 | GET    | /products/:id        | Ver detalle de un producto |
 
-## Rutas del Dashboard
+## Rutas del Dashboard (Administrador)
 
 | Metodo | Ruta                  | Descripcion                     |
 |--------|-----------------------|---------------------------------|
-| GET    | /dashboard            | Ver todos los productos (admin) |
+| GET    | /dashboard            | Ver todos los productos         |
 | GET    | /dashboard/new        | Formulario crear producto       |
 | POST   | /dashboard            | Crear producto                  |
-| GET    | /dashboard/:id        | Detalle producto (admin)        |
+| GET    | /dashboard/:id        | Detalle producto                |
 | GET    | /dashboard/:id/edit   | Formulario editar producto      |
 | PUT    | /dashboard/:id        | Actualizar producto             |
 | DELETE | /dashboard/:id/delete | Eliminar producto               |
 
 ## Acceso al Dashboard (Administrador)
 
-El panel de administracion esta protegido con usuario y contrasena.
+El panel de administración esta protegido con usuario y contraseña.
 Las credenciales se configuran en el archivo .env:
 
 ADMIN_USER=tu_usuario
@@ -111,9 +114,6 @@ ADMIN_PASSWORD=tu_contrasena
 ## Documentacion API
 
 Disponible en: http://localhost:3000/api-docs
-
-
-Disponible en : 
 
 ## Autor/a
 

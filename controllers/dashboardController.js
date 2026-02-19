@@ -50,6 +50,7 @@ const dashboardControllers = {
             `
             const html = baseHtml(getDashboardNavBar() + detail)
             res.send(html);
+
         } catch(error) {
             console.error(error);
             res.status(500).json("Error")
@@ -191,6 +192,7 @@ const dashboardControllers = {
             };
             
             res.redirect("/dashboard");
+            
         } catch(error) {
             console.log(error);
             res.status(500).json("Error")

@@ -15,3 +15,4 @@ router.put("/:productId", apiController.updateProduct);//Actualiza un producto, 
 router.delete("/:productId", apiController.deleteProduct);//Elimina un producto, devuelve confirmacion
 
 module.exports = router;
+

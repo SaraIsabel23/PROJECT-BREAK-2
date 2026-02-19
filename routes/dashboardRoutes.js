@@ -23,3 +23,4 @@ router.put("/:productId",upload.single('image'), dashboardController.updateProdu
 router.delete("/:productId/delete", dashboardController.deleteProduct);
 
 module.exports = router;
+

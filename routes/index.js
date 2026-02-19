@@ -14,3 +14,5 @@ router.use("/api/products", apiRoutes);
 router.use('/auth', authRoutes);
 
 module.exports = router;
+
+

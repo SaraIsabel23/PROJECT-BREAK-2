@@ -21,7 +21,6 @@ const publicControllers = {
             const html = baseHtml(getNavBar() + productCards);
             res.send(html);
 
-            
         }catch(error) {
             console.error(error);
             res.status(500).json("Error")
